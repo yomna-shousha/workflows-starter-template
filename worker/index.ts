@@ -15,6 +15,21 @@ export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
 		const url = new URL(request.url);
 
+		// Debug endpoint to check what vars/bindings the preview has
+		if (url.pathname === "/debug") {
+			const e = env as any;
+			return Response.json({
+				test: "builds-override-test",
+				vars: {
+					DEFAULT_VAR: e.DEFAULT_VAR ?? "NOT SET",
+					OVERRIDE_ME: e.OVERRIDE_ME ?? "NOT SET",
+					EXTRA_VAR: e.EXTRA_VAR ?? "NOT SET",
+					preview: e["preview "] ?? e.preview ?? "NOT SET",
+				},
+				timestamp: new Date().toISOString(),
+			});
+		}
+
 		// API: Start a new workflow instance
 		if (url.pathname === "/api/workflow/start" && request.method === "POST") {
 			try {
