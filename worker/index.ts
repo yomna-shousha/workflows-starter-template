@@ -19,12 +19,15 @@ export default {
 		if (url.pathname === "/debug") {
 			const e = env as any;
 			return Response.json({
-				test: "builds-override-test",
+				test: "no-defaults-test",
 				vars: {
-					DEFAULT_VAR: e.DEFAULT_VAR ?? "NOT SET",
-					OVERRIDE_ME: e.OVERRIDE_ME ?? "NOT SET",
-					EXTRA_VAR: e.EXTRA_VAR ?? "NOT SET",
-					preview: e["preview "] ?? e.preview ?? "NOT SET",
+					prod: e.prod ?? "NOT SET",
+					PREVIEW_VAR: e.PREVIEW_VAR ?? "NOT SET",
+					EXTRA: e.EXTRA ?? "NOT SET",
+				},
+				bindings: {
+					MY_WORKFLOW: e.MY_WORKFLOW ? "BOUND" : "NOT BOUND",
+					WORKFLOW_STATUS: e.WORKFLOW_STATUS ? "BOUND" : "NOT BOUND",
 				},
 				timestamp: new Date().toISOString(),
 			});
