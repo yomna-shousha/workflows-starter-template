@@ -1,7 +1,3 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "workflows-starter-template",
@@ -11,43 +7,23 @@
 		"directory": "./dist",
 		"not_found_handling": "single-page-application"
 	},
-	"observability": {
-		"enabled": true
-	},
-	/**
-	 * Workflows
-	 * Define Workflows to orchestrate multi-step processes
-	 * https://developers.cloudflare.com/workflows/
-	 */
+	"observability": { "enabled": true },
 	"workflows": [
-		{
-			"name": "my-workflow",
-			"binding": "MY_WORKFLOW",
-			"class_name": "MyWorkflow"
-		}
+		{ "name": "my-workflow", "binding": "MY_WORKFLOW", "class_name": "MyWorkflow" }
 	],
-	/**
-	 * Durable Objects
-	 * Used for WebSocket state management and real-time updates
-	 * https://developers.cloudflare.com/durable-objects/
-	 */
 	"durable_objects": {
 		"bindings": [
-			{
-				"name": "WORKFLOW_STATUS",
-				"class_name": "WorkflowStatusDO"
-			}
+			{ "name": "WORKFLOW_STATUS", "class_name": "WorkflowStatusDO" }
 		]
 	},
-	/**
-	 * Migrations
-	 * Required for Durable Objects
-	 */
 	"migrations": [
-		{
-			"tag": "v1",
-			"new_sqlite_classes": ["WorkflowStatusDO"]
-		}
+		{ "tag": "v1", "new_sqlite_classes": ["WorkflowStatusDO"] }
 	],
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	"previews": {
+		"vars": {
+			"PREVIEW_VAR": "from-previews-block",
+			"EXTRA": "also-from-config"
+		}
+	}
 }
